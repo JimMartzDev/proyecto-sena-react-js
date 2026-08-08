@@ -1,3 +1,9 @@
+import InputAddServiceForm from "./components/inputAddServiceForm/InputAddServiceForm";
+
 export default function AddServiceForm(params) {
-    return <>Hola</>
+    return <div>
+        <InputAddServiceForm placeholder="asd" />
+        <InputAddServiceForm placeholder="qwe"   />
+        <InputAddServiceForm placeholder="tyt"  />
+    </div>
 }
