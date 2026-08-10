@@ -8,9 +8,15 @@ function App() {
 
 
   return (
-    <div>
-      <AddServiceForm/>
+    <div className='h-dvh w-dvw bg-[#f3f4f6] p-4' >
+      <header>TurnApp</header>
+      <div className='bg-white w-full shadow rounded-sm p-4'>
+        <AddServiceForm/>
+      </div>
+      
+
     </div>
+
   )
 }
 
