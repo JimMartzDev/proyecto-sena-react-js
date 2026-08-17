@@ -4,6 +4,25 @@ import InputAddServiceForm from "./components/inputAddServiceForm/InputAddServic
 export default function AddServiceForm() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+  const [urlImg, setUrlImg] = useState("");
+
+  let urlPrueba = "";
+
+  const manejarImg = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setUrlImg(url);
+    }
+  };
+
+  const manejarImg2 = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      urlPrueba = url;
+    }
+  };
 
   const manejarForm = (event) => {
     event.preventDefault();
@@ -33,7 +52,7 @@ export default function AddServiceForm() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 border border-[#f3f4f6] ">
+    <div className="bg-white rounded-lg shadow p-4 border border-[#f3f4f6] flex flex-col gap-4 ">
       <div className="grid grid-cols-3 gap-4">
         <div className="w-full">
           <Etiqueta htmlFor="servicio" nombre="Nombre del servicio" />
@@ -56,14 +75,31 @@ export default function AddServiceForm() {
           <InputAddServiceForm id="costo" placeholder="$ 0" type="number" />
         </div>
       </div>
-      <div className="flex">
-        <div className="flex-1 p-4">
-          <label htmlFor="">Seleccionar imagen</label>
-          <input type="file" className="hidden pl-2" accept="image/*" />
-          <span>Ningún archivo seleccionado</span>
+      <div className="flex ">
+        <div className="flex flex-1 gap-4 items-center  text-gray-500">
+          <label
+            htmlFor="seleccionarImg"
+            className="bg-gray-50 border border-[#e5e7eb] focus:border-gray-400 focus:outline-none rounded-lg w-44 h-9 flex justify-center items-center cursor-pointer hover:bg-gray-100 active:bg-gray-300 select-none transition shadow-md duration-150 ease-in-out hover:shadow-lg active:scale-95 active:shadow-sm"
+          >
+            Seleccionar imagen
+          </label>
+          <input
+            type="file"
+            className="hidden pl-2"
+            accept="image/*"
+            id="seleccionarImg"
+            onChange={manejarImg}
+          />
+          {urlImg ? (
+            <img className="h-9 w-9" src={urlImg} alt="Imagen seleccionada" />
+          ) : (
+            <span>Ningún archivo seleccionado</span>
+          )}
         </div>
-        <div className="w-52">
-          <button className="">Guardar servicio</button>
+        <div className="w-52 text-gray-500">
+          <button className="" onClick={() => console.log(urlPrueba)}>
+            Guardar servicio
+          </button>
         </div>
       </div>
       {/* <form onSubmit={manejarForm}>
