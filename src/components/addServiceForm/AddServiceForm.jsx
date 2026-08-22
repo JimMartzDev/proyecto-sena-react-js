@@ -1,12 +1,13 @@
 import { useState } from "react";
 import InputAddServiceForm from "./components/inputAddServiceForm/InputAddServiceForm";
 
-export default function AddServiceForm() {
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
+export default function AddServiceForm(props) {
   const [urlImg, setUrlImg] = useState("");
+  const [desc, setDesc] = useState("");
+  const [serv, setServ] = useState("");
+  const [costo, setCosto] = useState("");
 
-  let urlPrueba = "";
+  const { onSave } = props;
 
   const manejarImg = (e) => {
     const file = e.target.files?.[0];
@@ -16,30 +17,16 @@ export default function AddServiceForm() {
     }
   };
 
-  const manejarImg2 = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      urlPrueba = url;
-    }
-  };
-
-  const manejarForm = (event) => {
-    event.preventDefault();
-  };
-
-  const controlarInputUsuario = (event) => {
-    setUser(event.target.value);
-  };
-
-  const mostrarUsuario = () => {
-    // console.log(user);
-    // console.log(pass);
-    console.log("Hola Michael");
-  };
-
-  const copia = () => {
-    mostrarUsuario();
+  const manejarForm = (e) => {
+    e.preventDefault();
+    const result = {
+      servicio: serv,
+      descripcion: desc,
+      costo: costo,
+      imagen: urlImg,
+    };
+    console.log("Ejecutando desde AddServiceForm.jsx");
+    onSave(result);
   };
 
   const Etiqueta = (props) => {
@@ -52,27 +39,43 @@ export default function AddServiceForm() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 border border-[#f3f4f6] flex flex-col gap-4 ">
+    <form
+      onSubmit={manejarForm}
+      className="bg-white rounded-lg shadow p-4 border border-[#f3f4f6] flex flex-col gap-4 "
+    >
       <div className="grid grid-cols-3 gap-4">
         <div className="w-full">
           <Etiqueta htmlFor="servicio" nombre="Nombre del servicio" />
           <InputAddServiceForm
+            required
             id="servicio"
             placeholder="Ej. Corte de cabello"
+            value={serv}
+            onChange={(e) => setServ(e.target.value)}
           />
         </div>
 
         <div className="w-full">
           <Etiqueta htmlFor="descripcion" nombre="Descripción" />
           <textarea
+            required
             id="descripcion"
             className=" w-full h-16 bg-gray-50 rounded-lg border border-[#e5e7eb] px-2.5 py-1.5  focus:border-gray-400 focus:outline-none"
             placeholder="Describe el servicio..."
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
           ></textarea>
         </div>
         <div className="w-full">
           <Etiqueta htmlFor="costo" nombre="Costo" />
-          <InputAddServiceForm id="costo" placeholder="$ 0" type="number" />
+          <InputAddServiceForm
+            required
+            id="costo"
+            placeholder="$ 0"
+            type="number"
+            value={costo}
+            onChange={(e) => setCosto(e.target.value)}
+          />
         </div>
       </div>
       <div className="flex ">
@@ -97,18 +100,14 @@ export default function AddServiceForm() {
           )}
         </div>
         <div className="w-52 text-gray-500">
-          <button className="" onClick={() => console.log(urlPrueba)}>
-            Guardar servicio
+          <button
+            type="submit"
+            className="color text-white h-9 w-48 bg-green-500 border rounded-lg font-bold cursor-pointer focus:outline-none flex justify-center items-center hover:bg-green-700 active:bg-green-600 select-none transition shadow-md duration-150 ease-in-out hover:shadow-lg active:scale-95 active:shadow-sm text-sm"
+          >
+            GUARDAR SERVICIO
           </button>
         </div>
       </div>
-      {/* <form onSubmit={manejarForm}>
-
-            <input type="text" name="usuario"  value={user} className="border border-black" onChange={controlarInputUsuario} />
-            <input type="text" name="password"  value={pass}  onChange={(e)=>{setPass(e.target.value)}} className="border border-black" />
-            <button type="submit" >aaaaaaa</button>
-            <button onClick={()=>copia(mostrarUsuario)}>bbbbb</button>
-        </form> */}
-    </div>
+    </form>
   );
 }
