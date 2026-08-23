@@ -19,10 +19,12 @@ function App() {
       <div className=" w-3/4">
         <AddServiceForm onSave={manejarForm} />
       </div>
-      <hr
-        data-text="fsdfdsfsdfdsfds"
-        className="w-3/4 bg-amber-600  border-t-2 after:content-['fsdfdsfsdfdsfds'] after:inline-block after:relative after:px-3 after:bg-white"
-      />
+      <div className="w-3/4 flex h-4 gap-6 items-center">
+        <hr className="w-5/12 border-[#e5e7eb] h-px" />
+        <span className="text-[#9ca3af] text-xs w-48">SIN SERVICIOS AÚN</span>
+        <hr className="w-5/12 border-[#e5e7eb] h-px" />
+      </div>
+
       <div className="w-3/4 h-20 bg-amber-500 "></div>
     </div>
   );
