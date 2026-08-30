@@ -5,8 +5,9 @@ import CardRegisteredService from "./components/cardRegisteredService/CardRegist
 
 function App() {
   const [serv, setServ] = useState("");
+  const [servicios, setServicios] = useState([]);
 
-  const manejarForm = (e) => {
+  const handleForm = (e) => {
     setServ(e.servicio);
     console.log(e);
     console.log("Ejecutando desde App.jsx");
@@ -18,7 +19,7 @@ function App() {
         <span className="text-lg text-gray-500">Registro de servicios</span>
       </header>
       <div className=" w-3/4">
-        <AddServiceForm onSave={manejarForm} />
+        <AddServiceForm onSave={handleForm} />
       </div>
       <div className="w-3/4 flex h-4 gap-6 items-center">
         <hr className="flex-1 border-[#e5e7eb] h-px" />
@@ -27,8 +28,17 @@ function App() {
         </span>
         <hr className="flex-1 border-[#e5e7eb] h-px" />
       </div>
-      <div className="w-3/4 h-full ">
-        <CardRegisteredService />
+      <div className="w-3/4 h-full flex gap-4 flex-wrap overflow-y-auto">
+        {servicios.map((servicio, i) => {
+          return (
+            <CardRegisteredService
+              servicio={servicio.servicio}
+              imagen={servicio.imagen}
+              descripcion={servicio.descripcion}
+              costo={servicio.costo}
+            />
+          );
+        })}
       </div>
     </div>
   );
