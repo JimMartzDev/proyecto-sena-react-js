@@ -27,6 +27,10 @@ export default function AddServiceForm(props) {
     };
     console.log("Ejecutando desde AddServiceForm.jsx");
     onSave(result);
+    setUrlImg("");
+    setDesc("");
+    setServ("");
+    setCosto("");
   };
 
   const Etiqueta = (props) => {
